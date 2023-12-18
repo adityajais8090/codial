@@ -5,6 +5,8 @@ const port = 8000;
 
 //use express router
 app.use('/',require('./routes'));
+app.use('/users', require('./routes'));
+
 
 app.listen( port, function(err){
   if(err){
