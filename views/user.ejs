@@ -1,3 +1,12 @@
+<link rel="stylesheet" href="/css/home.css">
 
-        <h1> social / <%= title %> </h1>
-        
+
+<form action="/users/profile" method="POST">
+    <label for="email">Emails:</label>
+    <input type="text" name="email" id="email" placeholder="abc@gmail.com" required><br>
+    <label for="password">Password:</label>
+    <input type="text" name="password" id="password" placeholder="password" required><br>
+    <label for="uname">Username:</label>
+    <input type="text" name="name" id="uname" placeholder="username" required><br>
+    <button type="submit">Login</button>
+</form>
