@@ -5,8 +5,10 @@ const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const user = require('./models/user');
+const cookieParser = require('cookie-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static('./assets'));
 
 app.set('layouts extractStyles', true);
@@ -27,7 +29,7 @@ app.listen( port, function(err){
   if(err){
    // console.log('Error in listen:'. err);
    console.log(`Errror in running server: ${err}`);
-  }
-    console.log(`Server is running on port: ${port}`);
+  } 
+  console.log(`Server is running on port: ${port}`);
 });
 

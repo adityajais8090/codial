@@ -2,6 +2,27 @@
 const db = require('../config/mongoose');
 const User = require('../models/user');
 
+
+module.exports.profile = async function(req, res) {
+    try {
+        if (req.cookies.user_id) {
+            const existingUser = await User.findById(req.cookies.user_id).exec();
+            if (existingUser) {
+                return res.render('profile', {
+                    title: "Profile Page",
+                    user: existingUser
+                });
+            } else {
+                return res.redirect('/users/sign-in');
+            }
+        }
+    } catch (err) {
+        console.error('Error in finding user by ID:', err);
+        return res.redirect('/users/sign-in');
+    }
+};
+
+
 //render the signup page
 module.exports.signUp = function(req,res){
     return res.render('user_sign_up', {
@@ -26,6 +47,7 @@ module.exports.create = async function(req, res) {
         const newUser = await User.create({
             email: req.body.email,
             password: req.body.password,
+            name : req.body.name
             // other fields
         });
 
@@ -35,12 +57,30 @@ module.exports.create = async function(req, res) {
         console.error('Error in finding or creating user:', err);
         return res.redirect('back');
     }
-};
+}
 
 
-module.exports.createSession = function(req,res){
+module.exports.createSession = async function(req,res){
+
+    try{
+      const  existingUser = await User.findOne({ email: req.body.email }).exec();
+      if(existingUser){
+        if(existingUser.password !== req.body.password){
+            return res.redirect('back');
+        }
+          res.cookie('user_id', existingUser.id);
+        return res.redirect('/users/profile');
+      }  else {
+        return res.redirect('back');
+      } 
+
+    } catch(err){
+        console.error('Error in finding or creating session user:', err);
+        return res.redirect('back');
+    }
     //to do later
 }
+
 
 //render the signin page
 module.exports.signIn = function(req,res){
@@ -48,6 +88,8 @@ module.exports.signIn = function(req,res){
        title:"Codinal | sign IN"
     } )
 }
+
+
 
 
 
@@ -76,7 +118,7 @@ module.exports.createeeeeee = function(req, res){
 };
 
 // Handle form submission and display user data
-module.exports.profile = async function (req, res) {
+module.exports.profileeeeeeeeee = async function (req, res) {
     try {
         console.log('req.body:', req.body);
 
