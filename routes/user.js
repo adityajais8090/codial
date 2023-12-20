@@ -5,7 +5,7 @@ const router = express.Router();
 const userController = require('../controller/user_controller');
 
 
-router.post('/profile', userController.profile);
+router.get('/profile', userController.profile);
 
 router.post('/create',userController.create);
 router.post('/createSession', userController.createSession);

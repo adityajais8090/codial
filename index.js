@@ -5,8 +5,11 @@ const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const user = require('./models/user');
+const cookiesParser = require('cookie-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookiesParser());
+
 app.use(express.static('./assets'));
 
 app.set('layouts extractStyles', true);
