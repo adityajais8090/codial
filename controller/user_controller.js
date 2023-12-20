@@ -2,27 +2,6 @@
 const db = require('../config/mongoose');
 const User = require('../models/user');
 
-
-module.exports.profile = async function(req, res) {
-    try {
-        if (req.cookies.user_id) {
-            const existingUser = await User.findById(req.cookies.user_id).exec();
-            if (existingUser) {
-                return res.render('profile', {
-                    title: "Profile Page",
-                    user: existingUser
-                });
-            } else {
-                return res.redirect('/users/sign-in');
-            }
-        }
-    } catch (err) {
-        console.error('Error in finding user by ID:', err);
-        return res.redirect('/users/sign-in');
-    }
-};
-
-
 //render the signup page
 module.exports.signUp = function(req,res){
     return res.render('user_sign_up', {
@@ -47,7 +26,7 @@ module.exports.create = async function(req, res) {
         const newUser = await User.create({
             email: req.body.email,
             password: req.body.password,
-            name : req.body.name
+            name: req.body.name
             // other fields
         });
 
@@ -57,29 +36,55 @@ module.exports.create = async function(req, res) {
         console.error('Error in finding or creating user:', err);
         return res.redirect('back');
     }
-}
-
+};
 
 module.exports.createSession = async function(req,res){
 
     try{
-      const  existingUser = await User.findOne({ email: req.body.email }).exec();
-      if(existingUser){
+    const existingUser = await User.findOne({ email: req.body.email }).exec();
+    if(existingUser){
         if(existingUser.password !== req.body.password){
             return res.redirect('back');
         }
-          res.cookie('user_id', existingUser.id);
+        res.cookie('user_id', existingUser.id);
         return res.redirect('/users/profile');
-      }  else {
-        return res.redirect('back');
-      } 
-
-    } catch(err){
-        console.error('Error in finding or creating session user:', err);
+    } else {
         return res.redirect('back');
     }
-    //to do later
+} catch(err){
+    console.error('Error in finding or creating session user:', err);
+    return res.redirect('back');
 }
+   
+    //to do later
+};
+
+
+
+module.exports.profile = async function(req, res) {
+
+    
+try {
+    if (req.cookies.user_id) {
+
+       
+
+        const existingUser = await User.findById(req.cookies.user_id).exec();
+        if (existingUser) {
+            return res.render('profile', {
+                title: "Profile Page",
+                user: existingUser
+            });
+        } else {
+            return res.redirect('/users/sign-in');
+        }
+    }
+} catch (err) {
+    console.error('Error in finding user by ID:', err);
+    return res.redirect('/users/sign-in');
+}
+    //to do later
+};
 
 
 //render the signin page
@@ -88,6 +93,9 @@ module.exports.signIn = function(req,res){
        title:"Codinal | sign IN"
     } )
 }
+
+
+
 
 
 
