@@ -2,8 +2,74 @@
 const db = require('../config/mongoose');
 const User = require('../models/user');
 
+//render the signup page
+module.exports.signUp = function(req,res){
+    return res.render('user_sign_up', {
+        title:"Codial | Signup"
+    })
+}
+
+module.exports.create = async function(req, res) {
+    if (req.body.password !== req.body.confirm_password) {
+        return res.redirect('back');
+    }
+
+    try {
+        const existingUser = await User.findOne({ email: req.body.email }).exec();
+
+        if (existingUser) {
+            console.log('User with the provided email already exists');
+            return res.redirect('back');
+        }
+
+        // Create a new user
+        const newUser = await User.create({
+            email: req.body.email,
+            password: req.body.password,
+            // other fields
+        });
+
+        console.log('New user created:', newUser);
+        return res.redirect('/users/sign-in');
+    } catch (err) {
+        console.error('Error in finding or creating user:', err);
+        return res.redirect('back');
+    }
+};
+
+
+module.exports.createSession = function(req,res){
+    //to do later
+}
+
+//render the signin page
+module.exports.signIn = function(req,res){
+    return res.render('user_sign_in',{
+       title:"Codinal | sign IN"
+    } )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Render the create form
-module.exports.create = function(req, res){
+module.exports.createeeeeee = function(req, res){
     return res.render('user', {
         title: "Create Profile",
     });
