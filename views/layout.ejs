@@ -5,11 +5,16 @@
         </title>
         
         <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
         
     </head>
     <body>
         <%- include('_header'); %>
-        <%- body %>
+        <main id = "layout-main">
+            <%- body %>
+        </main>
+        
         <%- include('_footer'); %>
        
     </body>

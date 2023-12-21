@@ -1,0 +1,21 @@
+header {
+  color: white;
+  margin: 0px;
+  height: 4rem;
+  background-color: #1685F8;
+  display: flex;
+  justify-content: space-between; }
+  header #head-font {
+    margin-top: 0.8rem;
+    margin-left: 0.4rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem; }
+  header ul li {
+    list-style: none;
+    padding-right: 2rem;
+    display: inline; }
+    header ul li a {
+      font-weight: 400;
+      color: #ede5e5;
+      display: inline; }

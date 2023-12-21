@@ -1,0 +1,27 @@
+header{
+    #head-font{
+        margin-top:0.8rem;
+        margin-left:0.4rem;
+        text-align:center;
+        font-weight: 700;
+        font-size: 2rem;
+    }
+    color:white;
+    margin:0px;
+    height:4rem;
+    background-color:#1685F8;
+    display:flex;
+    justify-content: space-between;
+    ul {
+        li{
+            list-style: none;
+            padding-right:2rem;
+            display:inline;
+            a{
+                font-weight:400;
+                color:rgb(237, 229, 229);
+                display:inline;
+            }
+        }
+    }
+}
