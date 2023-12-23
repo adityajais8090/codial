@@ -7,6 +7,8 @@ router.get('/',homeController.home);
   
 router.use('/users', require('./user'));
 router.use('/signin', require('./login'));
+router.use('/posts', require('./posts'));
+router.use('/comments', require('./comments'));
 
 
 module.exports = router;

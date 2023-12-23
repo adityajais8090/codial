@@ -1,9 +1,11 @@
 const express = require ('express');
 const router = express.Router();
 const passport = require('passport');
-
+const User = require('../models/user');
+const Post = require('../models/post');
 
 const userController = require('../controller/user_controller');
+const homeController = require('../controller/home_controller');
 
 //use passport as a middleware to authenticate
 router.post('/createSession', passport.authenticate('local', {failureRedirect:'/users/sign-in'}),
@@ -20,6 +22,6 @@ router.get('/sign-in', userController.signIn);
 
 router.get('/sign-out', userController.destroySession);
 
-router.use('/social', require('./post'));
+router.use('/social', require('./posts'));
 module.exports = router;
 

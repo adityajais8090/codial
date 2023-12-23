@@ -8,7 +8,6 @@ header {
   header #head-font {
     margin-top: 0.8rem;
     margin-left: 0.4rem;
-    text-align: center;
     font-weight: 700;
     font-size: 2rem; }
   header ul li {
@@ -16,6 +15,8 @@ header {
     padding-right: 2rem;
     display: inline; }
     header ul li a {
-      font-weight: 400;
+      margin-top: 0.8rem;
+      text-decoration: none;
+      font-weight: 700;
       color: #ede5e5;
       display: inline; }

@@ -1,5 +1,29 @@
 <link rel="stylesheet" href="/css/home.css">
+ <div class = "mid-align">
+
         <h1>Codial / <%= title %></h1>
+
+        <section id = "feed-posts">
+                <h4> Posts </h4>
+                <% if(locals.user){ %>
+        <form action ="/posts/create" id = "new-post-form" method="POST" >
+                <textarea name = "content" rows = "10" cols = "30" placeholder="Type text here"></textarea>
+                <input type = "submit" value = "Post">
+        </form>
+        
+        <% } %>
+       
+        <div id = "post-list-container">
+                
+                <ul>
+
+       <%- include('_post') -%>
+
+</ul>
+</div>
+</section>
+</div>      
+
 
        
         
