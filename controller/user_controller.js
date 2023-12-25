@@ -30,12 +30,15 @@ module.exports.create = async function(req, res) {
         const newUser = await User.create({
             email: req.body.email,
             password: req.body.password,
+            name: req.body.name,
             // other fields
         });
 
         console.log('New user created:', newUser);
         return res.redirect('/users/sign-in');
-    } catch (err) {
+    } 
+    
+    catch (err) {
         console.error('Error in finding or creating user:', err);
         return res.redirect('back');
     }
@@ -46,6 +49,7 @@ module.exports.createSession = async function(req,res){
         
         // const existingUser = await User.findOne({ email: req.body.email }).exec();
         // if(existingUser){ 
+            req.flash('success', 'Logged in Succesfully');
             return res.redirect('/');
         // }
         //     if(existingUser.password !== req.body.password){
@@ -58,7 +62,8 @@ module.exports.createSession = async function(req,res){
         // }
     } catch(err){
         console.error('Error in finding or creating session user:', err);
-        return res.redirect('back');
+        req.flash('error', 'Error in Username/Password');
+        return res.redirect('/sign-in');
     }
     //to do later
 };
@@ -66,9 +71,19 @@ module.exports.createSession = async function(req,res){
 
 
 module.exports.profile = async function (req, res) {
-    return res.render('profile',{
-        title:"Profile page"
-     } )
+    try{
+    const profile_user = await User.findById(req.params.id).exec();
+    if(profile_user){
+        return res.render('profile',{
+            title:"Profile page",
+            profile_user:profile_user,
+         })
+    }
+    }
+    catch(err){
+        console.error('Error in move to profile page:', err);
+         return res.redirect('/');
+    }
 }
 //     try {
 //         return res.render
@@ -107,13 +122,16 @@ module.exports.signIn = function(req,res){
     } )
 }
 
-module.exports.destroySession = function(req,res){
-    req.logout(function(err){
-        if(err){
+module.exports.destroySession = function(req, res) {
+    req.logout(function(err) {
+        if (err) {
             console.error('Error in destroying session:', err);
             return res.redirect('/');
-        }})
+        }
+
+        req.flash('success', 'Logged out Successfully');
         return res.redirect('/');
+    });
 }
 
 

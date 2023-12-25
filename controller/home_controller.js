@@ -3,6 +3,7 @@
 const db = require('../config/mongoose');
 const Post = require('../models/post');
 const mongoose = require('mongoose');
+const User = require('../models/user');
 
 
 module.exports.home = async function(req,res){
@@ -10,6 +11,7 @@ module.exports.home = async function(req,res){
     // res.cookie('user_id', 25);
    try { 
     const posts = await Post.find({})
+    .sort('-createdAt')
     .populate('user')
     .populate({
        path:'comments',
@@ -19,10 +21,11 @@ module.exports.home = async function(req,res){
     })
     .exec();
     if(posts){
+       const users = await User.find({}).exec();
         return res.render('home', { 
             title:"Home",
             posts:posts,
-        
+            users:users,
     });
 }} 
 catch(err){

@@ -15,7 +15,17 @@ try{
         user:req.user._id,
         comment:[]
     });
+
+    if(req.xhr){
+        return res.status(200).json({
+            data : {
+                post: newText,
+                message: 'post-created!'
+            }
+        });
+    }
     console.log('Newtext posted', newText);
+    req.flash('success', 'Posted Succesfully');
     return res.redirect('/');
 
 } catch(err){
@@ -34,12 +44,22 @@ try{
         if(post.user == req.user.id){
             await post.deleteOne();
             Comment.deleteMany({ post:req.params.id });
-            return res.redirect('back');
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post_id: req.params.id },
+                    message: "Post deleted",
+                });
+            }
         }
-    }else {
-        return res.redirect('back');
+            req.flash('success', 'Post deleted');
+            return res.redirect('back');
+
+        }else {
+            return res.redirect('back');
+        }    
     }
-}
+
 catch(err){
     console.log('find error in deleting post', err);
     return res.redirect('back');

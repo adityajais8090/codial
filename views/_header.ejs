@@ -5,7 +5,7 @@
     <ul>
        <% if(locals.user){  %>
             <li> 
-                <a href = '/users/profile' class="button-style">  <%= user.name %> </a>
+                <a href = '/users/profile/<%= user._id %>' class="button-style">  <%= user.name %> </a>
                   </li>  
         <li>
               <a href = '/users/sign-out' class="button-style"> Sign Out </a>

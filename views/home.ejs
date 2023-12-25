@@ -22,7 +22,19 @@
 </ul>
 </div>
 </section>
-</div>      
+<section id = "All-Users">
+<ul id = "users-name">
+        <h2>Friends</h2>
+        <% for(user of users){ %>
+                <p>
+                        <a href = "/users/profile/<%=user._id %>"> <%= user.name %> </a>
+                </p>
+       <% } %>
+</ul>
+
+</section>
+</div>     
+<script src = "/js/home_posts.js"></script> 
 
 
        
