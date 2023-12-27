@@ -16,6 +16,7 @@ router.get('/profile/:id', passport.checkAuthentication ,userController.profile)
 
 router.post('/create',userController.create);
 router.post('/createSession', userController.createSession);
+router.post('/update/:id', userController.update);
 
 router.get('/sign-up', userController.signUp);
 router.get('/sign-in', userController.signIn);

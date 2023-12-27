@@ -17,12 +17,22 @@ module.exports.comment = async function(req,res){
                 post:req.body.post,
             });
             if(comment){
+                // if(req.xhr){
+                //     return res.status(200).json({
+                //         data : {
+                //             post_comment : comment
+                //         },
+                //             message: 'comment-created!'
+                //         }
+                //     );
+                // }
                 post.comments.push(comment);
                 console.log(comment.content);
                 await post.save();
                 console.log('Newtext commented', comment);
                 return res.redirect('/');
             }
+            
         }
     } catch(err){
         if(err){

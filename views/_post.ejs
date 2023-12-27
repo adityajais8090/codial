@@ -4,7 +4,7 @@
                                 <p>
                                     <% if(locals.user && locals.user.id == post.user.id){ %> 
                                             <small>
-                                                    <a class = "delete-post-button" href = "/posts/destroy/<%= post.id %>">X</a>
+                                                    <a class = "delete-post-button" href = "/posts/destroy/<%= post._id %>">X</a>
                                             </small>
                                             <% } %>
                             <%= post.content %>
@@ -22,15 +22,14 @@
                              </form>
                                  <%  } %>
                                   
-                            <div class = "post-comment-list">
-                                    <ul id = " post-comments-<% post._id %>">
-                                    <p>
+                             <div class = "post-comment-list">
+                                <ul id="post-comments-<%= post._id %>">
                                             <% for(comment of post.comments){ %>
                                                     
                                              <%- include('_comment') -%>
 
                                            <% } %>
-                                    </p>
+                                    
                             </ul>
                             </div>
                         </div>

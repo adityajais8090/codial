@@ -135,6 +135,25 @@ module.exports.destroySession = function(req, res) {
 }
 
 
+module.exports.update = async function(req,res){
+    try{
+        if(req.user.id == req.params.id){
+            const user = User.findByIdAndUpdate(req.params.id, req.body).exec();
+            req.flash('success', 'Updated Succesfully');
+            return res.redirect('back');
+        } else {
+            return res.status(401).send('Unauthiorized');
+        }
+    }
+    catch(err){
+        console.log('Error in Updating of Id', err);
+        return res.redirect('back');
+
+    }
+   
+}
+
+
 
 
 
