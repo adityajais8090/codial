@@ -2,6 +2,13 @@
 const db = require('../config/mongoose');
 const User = require('../models/user');
 const mongoose = require('mongoose');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const AVATAR_PATH = path.join('/uploads/users/avatar');
+
+
+
 
 //render the signup page
 module.exports.signUp = function(req,res){
@@ -135,23 +142,67 @@ module.exports.destroySession = function(req, res) {
 }
 
 
-module.exports.update = async function(req,res){
-    try{
-        if(req.user.id == req.params.id){
-            const user = User.findByIdAndUpdate(req.params.id, req.body).exec();
-            req.flash('success', 'Updated Succesfully');
-            return res.redirect('back');
-        } else {
-            return res.status(401).send('Unauthiorized');
-        }
-    }
-    catch(err){
-        console.log('Error in Updating of Id', err);
-        return res.redirect('back');
+module.exports.update = async function (req, res) {
+    try {
+        if (req.user.id == req.params.id) {
+            let user = await User.findById(req.params.id).exec();
+            try {
+                User.uploadedAvatar(req, res, function (err) {
+                    if (err) {
+                        console.log('Multer Error:', err);
+                    }
 
+                    user.name = req.body.name;
+                    user.email = req.body.email;
+
+                    if (req.file) {
+                        if (user.avatar) {
+                            const avatarPath = path.join(__dirname, '..', user.avatar);
+                    
+                            // Check if the file exists before attempting to delete
+                            if (fs.existsSync(avatarPath)) {
+                                // Delete the existing avatar file
+                                fs.unlinkSync(avatarPath);
+                                console.log('Avatar file deleted successfully.');
+                            } else {
+                                console.log('Avatar file does not exist at:', avatarPath);
+                            }
+                        } else {
+                            console.log('Error in uploading file', err);
+                        }
+                    
+                        // Update the avatar property of the user object
+                        user.avatar = User.avatarPath + '/' + req.file.filename;
+                    }
+                    
+                
+                    
+
+                    user.save();
+                    req.flash('success', 'Updated Succesfully');
+                    return res.redirect('back');
+                });
+            } catch (err) {
+                console.log('Error in Updating of Id', err);
+                return res.redirect('back');
+            }
+        } else {
+            return res.status(401).send('Unauthorized');
+        }
+    } catch (err) {
+        console.log('Error in updating user:', err);
+        return res.redirect('back');
     }
+};
+
+
+
    
-}
+   
+
+
+
+
 
 
 

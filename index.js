@@ -69,6 +69,8 @@ app.use('/',require('./routes'));
 app.use('/users', require('./routes'));
 app.use('/signin', require('./routes'));
 app.use('/posts', require('./routes'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/api', require('./routes'));
 
 app.listen( port, function(err){
   if(err){
