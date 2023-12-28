@@ -16,6 +16,10 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
+//used for jwt-passport auth 
+const passportJWT = require('./config/passport-jwt-strategy');
+
+
 
 app.use(sassMiddleware({
   src:'./assets/scss',
@@ -80,3 +84,40 @@ app.listen( port, function(err){
     console.log(`Server is running on port: ${port}`);
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//   "message": "sign in successfully, here is your token",
+//   "data": {
+//       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFfamFpc3dhbEBlY2UuaWl0ci5hYy5pbiIsInBhc3N3b3JkIjoiODA5MCIsIm5hbWUiOiJBRElUWUEgSkFJU1dBTCIsImF2YXRhciI6IlxcdXBsb2Fkc1xcdXNlcnNcXGF2YXRhci9hdmF0YXItMTcwMzc0MjY3NDY3MSIsImlhdCI6MTcwMzc1NzYwNCwiZXhwIjoxNzAzNzU3NzA0fQ.1c2fp54crTU79ZXbRbQ56syAv_6yOzrTJAi8JQ7CYTE"
+//   }
+// }

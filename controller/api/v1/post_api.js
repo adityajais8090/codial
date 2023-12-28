@@ -57,28 +57,28 @@ try{
 
     
 // Now you can call remove on the post instance
-    let post = await Post.findByIdAndDelete(req.params.id).exec();
- await Comment.deleteMany({ post:req.params.id });
-            //single page system
-        // if(req.xhr){
-        //     return res.status(200).json({
-        //         data:{
-        //             post_id: req.params.id 
-        //         },
-        //             message: "Post deleted",
-        //         });
-        //     }
-            //req.flash('success', 'Post deleted');
+    let post = await Post.findById(req.params.id).exec();
+    if(post){
+        if(post.user == req.user.id){
+            await post.deleteOne();
+            Comment.deleteMany({ post:req.params.id });
+        
+            req.flash('success', 'Post deleted');
             return res.json(200, {
                 message : "post deleted",
             });
+        } else {
+            return res.json(401, {
+                message: "You cannot delete the post!",
+            });
+        }
         // }   
     // }else {
     //     return res.json(401, {
     //         message : "post not get deleted",
     //     });
     // }
-}
+}}
 catch(err){
     console.log('find error in deleting post', err);
     return res.json(401, {
@@ -86,3 +86,5 @@ catch(err){
     });
 }
 }
+
+
