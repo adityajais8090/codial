@@ -1,5 +1,4 @@
 
-cat <<EOL > README.md
 # Social Media App - Codeial
 
 This is a social media web application built using **Node.js**, **Express.js**, **MongoDB**, **Passport.js**, and **JWT** for authentication. It allows users to sign up, log in, post content, and comment on posts. It integrates Google OAuth2.0 authentication for easy sign-ins and uses AJAX for dynamic content updates.
@@ -142,7 +141,3 @@ To enable Google login functionality, create credentials for OAuth 2.0 on the [G
 5. Push to the branch: \`git push origin feature-branch\`.
 6. Open a pull request.
 
-EOL
-
-# Confirm that the file has been generated
-echo "README.md has been generated successfully!"
